@@ -4,7 +4,7 @@ The files in this repository were used to configure the network depicted below.
 
 ![ELK Stack](Diagrams/ELKStack-Azure-Cloud.png)
 
-These files have been tested and used to generate a live ELK deployment on Azure. They can be used to either recreate the entire deployment pictured above. Alternatively, select portions of the _____ file may be used to install only certain pieces of it, such as Filebeat.
+These files have been tested and used to generate a live ELK deployment on Azure. They can be used to either recreate the entire deployment pictured above. 
 
 - [webservers](Ansible/webservers.yml)
 - [install-elk.yml](Ansible/install-elk.yml)
@@ -110,6 +110,13 @@ SSH into the control node and follow the steps below:
 - Copy the [ELK install](Ansible/install-elk.yml) file to `/etc/ansible`.
 - Update the hosts file to include the IP of your ELK machine as well as the IPs of the machines you plan to monitor (eg. \[elk\] and \[webservers\] in my \[hosts\](Ansible/hosts) file). 
 - Run the playbook, and navigate to http://\[ELK-server-IP\]/app/kibana to check that the installation worked as expected.
+
+In order to install the beats, SSH into the control node and:
+- Copy the `beats` folder into `/etc/ansible`
+- Update the `filebeat-config.yml` lines 1106, 1806 to match your configuration details
+- Run the `filebeat-playbook.yml` playbook
+- Update the `metricbeat.yml` file
+- Run the `metricbeat-playbook.yml` playbook
 
 [^1]: https://www.elastic.co/beats/metricbeat
 [^2]: https://www.elastic.co/beats/filebeat
