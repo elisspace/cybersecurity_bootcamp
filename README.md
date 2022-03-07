@@ -104,12 +104,12 @@ These Beats allow us to collect the following information from each machine:
 - FileBeat simplifies "the collection, parsing, and visualization of common log formats"[^2]
 
 ### Using the Playbook
-In order to use the ELK playbook, you will need to have an Ansible control node already configured. Assuming you have such a control node provisioned: 
+In order to use the ELK playbook, you will need to have an Ansible control node already configured. Assuming you have such a control node provisioned with [access controls configured correctly](Cloud-Access-Controls.md): 
 
 SSH into the control node and follow the steps below:
 - Copy the [ELK install](Ansible/install-elk.yml) file to `/etc/ansible`.
 - Update the hosts file to include the IP of your ELK machine as well as the IPs of the machines you plan to monitor (eg. \[elk\] and \[webservers\] in my \[hosts\](Ansible/hosts) file). 
-- Run the playbook, and navigate to http://\[ELK-server-IP\]/app/kibana to check that the installation worked as expected.
+- Run the playbook, and navigate to http://\[ELK-server-IP\]:5061/app/kibana to check that the installation worked as expected.
 
 In order to install the beats, SSH into the control node and:
 - Copy the `beats` folder into `/etc/ansible`
