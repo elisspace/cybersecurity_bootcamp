@@ -26,7 +26,7 @@
       pip:
         name: docker
 
-    - name: Install cyberxsecurity-dvwa
+    - name: Install ELK stack container
       docker_container:
         name: ELK-stack
         image: sebp/elk:761

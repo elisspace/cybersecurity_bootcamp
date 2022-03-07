@@ -12,6 +12,7 @@ These files have been tested and used to generate a live ELK deployment on Azure
 - [metricbeat-playbook.yml](Ansible/beats/metricbeat-playbook.yml)
 
 This document contains the following details:
+- How to Use This Repository
 - Description of the Topology
 - Access Policies
 - ELK Configuration
@@ -19,6 +20,23 @@ This document contains the following details:
   - Machines Being Monitored
 - How to Use the Ansible Build
 
+### How to Use This Repository
+
+All commands assume you're using a Debian flavor of Linux, and are meant as an example of one possible setup. Adjust as needed.
+
+##### Download your first copy
+1. Install git
+```sudo apt install git```
+2. Move to the desired directory to copy these files
+```cd ~/repositories```
+3. Clone the repo
+```git clone https://github.com/elisspace/cybersecurity_bootcamp.git```
+
+##### Update 
+1. Move to the `cybersecurity_bootcamp` directory
+```cd ~/repositories/cybersecurity_bootcamp```
+2. Pull the changes down
+```git pull```
 
 ### Description of the Topology
 
@@ -44,54 +62,56 @@ The configuration details of each machine may be found below.
 The machines on the internal network are not exposed to the public Internet. 
 
 Only the `Jump-Box-Provisioner` and the `RedTeam-ELKServer` machines can accept connections from the Internet. Access to these machines is only allowed from the following IP addresses:
-- \*\*.\*\*.\*\*\*.102
+- \*\*.\*\*.\*\*\*.102 
 
-Machines within the network can only be accessed by _____.
-- _TODO: Which machine did you allow to access your ELK VM? What was its IP address?_
+Note that the `RedTeam-ELKServer` is only internet-accessible on port 80 for Kibana. Otherwise, machines within the network can only be accessed by `Jump-Box-Provisioner`. 
 
 A summary of the access policies in place can be found in the table below.
 
-| Name     | Publicly Accessible | Allowed IP Addresses |
-|----------|---------------------|----------------------|
-| Jump Box | Yes/No              | 10.0.0.1 10.0.0.2    |
-|          |                     |                      |
-|          |                     |                      |
+| Name                  | Publicly Accessible | Allowed IP Addresses |
+|-----------------------|---------------------|----------------------|
+| Jump-Box-Provisioner  | Yes (port 22)       | \*\*.\*\*.\*\*\*.102 |
+| RedTeam-ELKServer     | Yes (port 80)       | \*\*.\*\*.\*\*\*.102 |
+| Web-*                 | No                  | Internal Subnet Only |
+| RedTeam2.LoadBalancer | Yes (port 80)       | \*\*.\*\*.\*\*\*.102 |
 
 ### Elk Configuration
 
-Ansible was used to automate configuration of the ELK machine. No configuration was performed manually, which is advantageous because...
-- _TODO: What is the main advantage of automating configuration with Ansible?_
+Ansible was used to automate configuration of the ELK machine. No configuration was performed manually, which is advantageous because we can quickly bring a drop-in replacement up in case of accessibility issues with the current ELK machine. 
 
 The playbook implements the following tasks:
-- _TODO: In 3-5 bullets, explain the steps of the ELK installation play. E.g., install Docker; download image; etc._
-- ...
-- ...
+- Increase available system memory
+- Install `docker`, `python-3`, `pip`, and finally `docker for python`
+- Install ELK-stack docker container
+- Enable docker service to restart automatically upon reboot
 
 The following screenshot displays the result of running `docker ps` after successfully configuring the ELK instance.
 
-![TODO: Update the path with the name of your screenshot of docker ps output](Images/docker_ps_output.png)
+![Docker Output](Images/docker_ps_output.png)
 
 ### Target Machines & Beats
 This ELK server is configured to monitor the following machines:
-- _TODO: List the IP addresses of the machines you are monitoring_
+- Web-1 | 10.0.0.6 
+- Web-2 | 10.0.0.8 
+- Web-3 | 10.0.0.9
 
 We have installed the following Beats on these machines:
-- _TODO: Specify which Beats you successfully installed_
+- [MetricBeat](https://www.elastic.co/beats/metricbeat)
+- [FileBeat](https://www.elastic.co/beats/filebeat)
 
 These Beats allow us to collect the following information from each machine:
-- _TODO: In 1-2 sentences, explain what kind of data each beat collects, and provide 1 example of what you expect to see. E.g., `Winlogbeat` collects Windows logs, which we use to track user logon events, etc._
+- MetricBeat collects "system-level CPU usage, memory, file system, disk IO, and network IO statistics, as well as top-like statistics for every process running on your systems"[^1]
+- FileBeat simplifies "the collection, parsing, and visualization of common log formats"[^2]
 
 ### Using the Playbook
-In order to use the playbook, you will need to have an Ansible control node already configured. Assuming you have such a control node provisioned: 
+In order to use the ELK playbook, you will need to have an Ansible control node already configured. Assuming you have such a control node provisioned: 
 
 SSH into the control node and follow the steps below:
-- Copy the _____ file to _____.
-- Update the _____ file to include...
-- Run the playbook, and navigate to ____ to check that the installation worked as expected.
-
-_TODO: Answer the following questions to fill in the blanks:_
-- _Which file is the playbook? Where do you copy it?_
-- _Which file do you update to make Ansible run the playbook on a specific machine? How do I specify which machine to install the ELK server on versus which to install Filebeat on?_
-- _Which URL do you navigate to in order to check that the ELK server is running?
+- Copy the [ELK install](Ansible/install-elk.yml) file to `/etc/ansible`.
+- Update the hosts file to include the IP of your ELK machine as well as the IPs of the machines you plan to monitor (eg. \[elk\] and \[webservers\] in my \[hosts\](Ansible/hosts) file). 
+- Run the playbook, and navigate to http://\[ELK-server-IP\]/app/kibana to check that the installation worked as expected.
 
 _As a **Bonus**, provide the specific commands the user will need to run to download the playbook, update the files, etc._
+
+[^1]: https://www.elastic.co/beats/metricbeat
+[^2]: https://www.elastic.co/beats/filebeat
