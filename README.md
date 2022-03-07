@@ -12,30 +12,30 @@ These files have been tested and used to generate a live ELK deployment on Azure
 - [metricbeat-playbook.yml](Ansible/beats/metricbeat-playbook.yml)
 
 This document contains the following details:
-- How to Use This Repository
-- Description of the Topology
-- Access Policies
-- ELK Configuration
+- [How to Use This Repository](#how-to-use-this-repository)
+- [Description of the Topology](#description-of-the-topology)
+- [Access Policies](#access-policies)
+- [ELK Configuration](#elk-configuration)
   - Beats in Use
   - Machines Being Monitored
-- How to Use the Ansible Build
+- [How to Use the Ansible Build](#using-the-playbook)
 
 ### How to Use This Repository
 
 All commands assume you're using a Debian flavor of Linux, and are meant as an example of one possible setup. Adjust as needed.
 
-##### Download your first copy
-1. Install git
+#### Download your first copy
+1. Install git:
 ```sudo apt install git```
-2. Move to the desired directory to copy these files
+2. Move to the desired directory to copy these files:
 ```cd ~/repositories```
-3. Clone the repo
+3. Clone the repo:
 ```git clone https://github.com/elisspace/cybersecurity_bootcamp.git```
 
-##### Update 
-1. Move to the `cybersecurity_bootcamp` directory
+#### Update 
+1. Move to the `cybersecurity_bootcamp` directory:
 ```cd ~/repositories/cybersecurity_bootcamp```
-2. Pull the changes down
+2. Pull the changes down:
 ```git pull```
 
 ### Description of the Topology
@@ -110,8 +110,6 @@ SSH into the control node and follow the steps below:
 - Copy the [ELK install](Ansible/install-elk.yml) file to `/etc/ansible`.
 - Update the hosts file to include the IP of your ELK machine as well as the IPs of the machines you plan to monitor (eg. \[elk\] and \[webservers\] in my \[hosts\](Ansible/hosts) file). 
 - Run the playbook, and navigate to http://\[ELK-server-IP\]/app/kibana to check that the installation worked as expected.
-
-_As a **Bonus**, provide the specific commands the user will need to run to download the playbook, update the files, etc._
 
 [^1]: https://www.elastic.co/beats/metricbeat
 [^2]: https://www.elastic.co/beats/filebeat
