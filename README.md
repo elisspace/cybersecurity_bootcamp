@@ -1,3 +1,11 @@
+# Portfolio Table of Contents
+- [Red vs Blue Capstone Project Report](https://github.com/elisspace/cybersecurity_bootcamp/blob/main/Red%20and%20Blue%20Team%20Project%20Report.pdf)
+  - A detailed write-up (in PDF form, based on slides) of a project where I infiltrated a target device, and then later looked at logs to identify the various exploitations from Kibana
+  - Tools used includes: Kibana, Elasticsearch, dirbuster, hydra, metasploit, msfvenom, meterpreter, Kali
+- [Automated ELK Stack Deployment](#automated-elk-stack-deployment)
+  - A detailed write-up (in markdown form) for a cloud deployment of a full, redundant ELK (Elasticsearch, Logstash, Kibana) stack on virtual machines
+  - Tools used includes: Ansible, Azure, SSH, and the aforementioned ELK stack   
+
 ## Automated ELK Stack Deployment
 
 The files in this repository were used to configure the network depicted below.
